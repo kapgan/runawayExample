@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnTile : MonoBehaviour
 {
+    private int boslukRandom;
     [SerializeField]
     GameObject tileToSpawn;
     [SerializeField]
@@ -18,6 +19,7 @@ public class SpawnTile : MonoBehaviour
     Vector3 previousTilePosition;
     [SerializeField]
     float startTime;
+    private int boslukBirakildiMi=3;
     [SerializeField]
     Vector3 direction, minDirection = new Vector3(0, 0, 1), otherDirection = new Vector3(1, 0, 0);
 
@@ -28,8 +30,10 @@ public class SpawnTile : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
+        
+   
         if (Time.time - startTime > timeOffset)
         {
             if (Random.value < randomValue)
@@ -45,7 +49,17 @@ public class SpawnTile : MonoBehaviour
             }
             Vector3 spawnPos = previousTilePosition + distanceBetweenTiles * direction;
             startTime = Time.time;
-            Instantiate(tileToSpawn, spawnPos, Quaternion.Euler(0, 0, 0));
+            boslukRandom = Random.Range(1, 10);
+            if(boslukRandom <= 5 || boslukBirakildiMi <= 3)
+            {
+
+               Instantiate(tileToSpawn, spawnPos, Quaternion.Euler(0, 0, 0));
+                boslukBirakildiMi ++;
+            }
+            else
+            {
+                boslukBirakildiMi=0;
+            }
             previousTilePosition = spawnPos;
         }
     }

@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
             transform.Rotate(new Vector3(0f, -90f, 0f));
         else if (turnRight)
             transform.Rotate(new Vector3(0f, 90f, 0f));
-        if (jump == true)
+        if (jump == true && mycharacterController.isGrounded)
         {
             directionY = jumpPower;
             Debug.Log("zýpla");
