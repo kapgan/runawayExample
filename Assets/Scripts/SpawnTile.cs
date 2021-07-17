@@ -29,7 +29,7 @@ public class SpawnTile : MonoBehaviour
         startTime = Time.time;
     }
 
-    // Update is called once per frame
+   
     private void FixedUpdate()
     {
         
@@ -48,19 +48,26 @@ public class SpawnTile : MonoBehaviour
                 otherDirection = temp;
             }
             Vector3 spawnPos = previousTilePosition + distanceBetweenTiles * direction;
+            if (previousTilePosition == spawnPos)
+            {//üst üste gelmesi engellendi
+                direction += new Vector3(1, 0, 0);
+                spawnPos = previousTilePosition + distanceBetweenTiles * direction;
+            }
+            previousTilePosition = spawnPos;
             startTime = Time.time;
             boslukRandom = Random.Range(1, 10);
             if(boslukRandom <= 5 || boslukBirakildiMi <= 3)
             {
 
-               Instantiate(tileToSpawn, spawnPos, Quaternion.Euler(0, 0, 0));
+               Instantiate(tileToSpawn, spawnPos, Quaternion.Euler(0, 90, 0));
                 boslukBirakildiMi ++;
             }
             else
             {
                 boslukBirakildiMi=0;
             }
-            previousTilePosition = spawnPos;
+          
         }
+
     }
 }
